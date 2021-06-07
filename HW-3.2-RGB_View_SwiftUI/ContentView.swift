@@ -16,8 +16,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            MainView(redLightValueSlider: $redLightValueSlider, greenLightValueSlider: $greenLightValueSlider, blueLightValueSlider: $blueLightValueSlider)
-            
+            MainView(redLightValue: $redLightValueSlider,
+                     greenLightValue: $greenLightValueSlider,
+                     blueLightValue: $blueLightValueSlider)
+                .background(Color(red: redLightValueSlider/255,
+                                  green: greenLightValueSlider/255,
+                                  blue: blueLightValueSlider/255,
+                                  opacity: 1))
+                .cornerRadius(20)
+                .padding()
             SliderBar(value: $redLightValueSlider, sliderColor: .red)
             SliderBar(value: $greenLightValueSlider, sliderColor: .green)
             SliderBar(value: $blueLightValueSlider, sliderColor: .blue)
@@ -41,19 +48,14 @@ struct ContentView_Previews: PreviewProvider {
 
 struct MainView: View {
     
-    @Binding var redLightValueSlider: Double
-    @Binding var greenLightValueSlider: Double
-    @Binding var blueLightValueSlider: Double
+    @Binding var redLightValue: Double
+    @Binding var greenLightValue: Double
+    @Binding var blueLightValue: Double
         
     var body: some View {
-        Text(" ")
+        Text("")
             .padding(.top, 200)
             .padding(.horizontal, 200)
-            .background(Color(red: redLightValueSlider,
-                              green: greenLightValueSlider,
-                              blue: blueLightValueSlider,
-                              opacity: 1))
-            .cornerRadius(20)
             .overlay(RoundedRectangle(cornerRadius: 20)
                         .stroke(Color(.black),
                                 lineWidth: 2)

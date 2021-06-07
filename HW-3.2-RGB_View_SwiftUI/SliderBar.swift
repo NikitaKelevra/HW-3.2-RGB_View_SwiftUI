@@ -9,18 +9,16 @@ import SwiftUI
 
 struct SliderBar: View {
     
-//    @State private var value = Double.random(in: 0...255)
     @Binding var value: Double
     
-    var sliderColor: UIColor = .black
-    
+    var sliderColor: UIColor
     var body: some View {
         
         HStack {
             Text("\(lround(value))")
                 .frame(maxWidth: 50)
                 .padding(.leading, 10)
-            Slider(value: $value, in: 0...255, step: 1)
+            Slider(value: $value, in: 0...255)
             EditView(value: $value)
         }
         .accentColor(Color(sliderColor))
@@ -31,18 +29,16 @@ struct SliderBar: View {
 
 struct SliderBar_Previews: PreviewProvider {
     static var previews: some View {
-        SliderBar(value: .constant(155), sliderColor: .blue)
+        SliderBar(value: .constant(200) , sliderColor: .blue)
     }
 }
 
 struct EditView: View {
     
     @State private var alertPressented: Bool = false
-    
     @Binding var value: Double
     
     var body: some View {
-        
         let valueFormatter = Binding<String>(
             get: {String(format: "%.00f", Double(self.value))},
             set: {
@@ -60,8 +56,8 @@ struct EditView: View {
                     Alert(
                         title: Text("Введенное число должно быть в диапазоне от 0 до 255")
                     )
-                   })
-            
+                   }
+            )
             .frame(maxWidth: 45)
             .scaledToFit()
             .keyboardType(.numberPad)
@@ -77,7 +73,6 @@ struct EditView: View {
                     print("Ups! Check the Value!!!!!!!")
                     return
                 }
-                
             }
     }
 }
